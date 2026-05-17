@@ -124,7 +124,7 @@ function App() {
 
         const detectorConfig = {
           runtime: "mediapipe",
-          solutionPath: "https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh",
+          solutionPath: "https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@0.4.1633559619",
         };
 
         const net = await faceLandmarksDetection.createDetector(
@@ -156,27 +156,22 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <h1 className="app-title">
+          <div className="app-title-icon">👁️</div>
+          <span className="text-gradient">FaceMesh</span> Analytics
+        </h1>
+
         {/* Loading Message */}
         {!modelLoaded && (
-          <div
-            style={{
-              position: "absolute",
-              zIndex: 100,
-              top: 20,
-              left: "50%",
-              transform: "translateX(-50%)",
-              color: "aqua",
-              fontSize: "20px",
-              fontFamily: "monospace",
-              fontWeight: "bold",
-            }}
-          >
-            ⏳ Loading FaceMesh model...
+          <div className="loading-container">
+            <div className="loading-spinner"></div>
+            <div className="loading-text">Loading AI Models...</div>
           </div>
         )}
 
-        {/* Webcam */}
-        <Webcam
+        {/* Camera and Canvas Container */}
+        <div className="camera-container">
+          <Webcam
           ref={webcamRef}
           audio={false}
           mirrored={true}
@@ -186,34 +181,15 @@ function App() {
             height: 480,
             facingMode: "user",
           }}
-          style={{
-            position: "absolute",
-            marginLeft: "auto",
-            marginRight: "auto",
-            left: 0,
-            right: 0,
-            textAlign: "center",
-            zIndex: 9,
-            width: 640,
-            height: 480,
-          }}
+          className="camera-feed"
         />
 
         {/* Canvas */}
         <canvas
           ref={canvasRef}
-          style={{
-            position: "absolute",
-            marginLeft: "auto",
-            marginRight: "auto",
-            left: 0,
-            right: 0,
-            textAlign: "center",
-            zIndex: 10,
-            width: 640,
-            height: 480,
-          }}
+          className="camera-canvas"
         />
+        </div>
 
         {/* Dashboard */}
         <Dashboard
